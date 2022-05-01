@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:scanly/image_manager/image_manager.dart';
 
 void main() {
   runApp(const MyApp());
