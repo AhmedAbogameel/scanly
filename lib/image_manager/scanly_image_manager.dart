@@ -2,16 +2,15 @@ import 'dart:io';
 import 'package:photo_manager/photo_manager.dart';
 
 abstract class ScanlyImageManager {
-
   /// Get the recent 20 image from storage
-  static Future<List<File?>> getRecentImages() async {
+  static Future<List<ImageModel>> getRecentImages() async {
     final recentAssetEntity = await getRecentAssetEntity();
     int length = recentAssetEntity.length;
-    List<File?> images = [];
+    List<ImageModel> images = [];
     for (int i = 0; i < length; i++) {
       final assetEntity = recentAssetEntity[i];
       final file = await assetEntity.file;
-      images.add(file);
+      images.add(ImageModel(type: Type.image, file: file!));
     }
     return images;
   }
@@ -25,7 +24,8 @@ abstract class ScanlyImageManager {
       throw UnimplementedError("Permission is not granted!");
     }
     final List<AssetPathEntity> paths = await PhotoManager.getAssetPathList();
-    final List<AssetEntity> entities = await paths.first.getAssetListPaged(page: 0, size: 20);
+    final List<AssetEntity> entities =
+        await paths.first.getAssetListPaged(page: 0, size: 20);
     return entities;
   }
 
@@ -33,4 +33,12 @@ abstract class ScanlyImageManager {
     final PermissionState _ps = await PhotoManager.requestPermissionExtend();
     return _ps.isAuth;
   }
+}
+
+enum Type { image, gallery }
+
+class ImageModel {
+  final Type? type;
+  final File? file;
+  const ImageModel({this.type, this.file});
 }
