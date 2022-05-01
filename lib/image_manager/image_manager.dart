@@ -1,11 +1,24 @@
+import 'dart:io';
 import 'package:photo_manager/photo_manager.dart';
 
-class ScanlyImageManager {
+abstract class ScanlyImageManager {
+
+  static Future<List<File?>> getRecentImages() async {
+    final recentAssetEntity = await getRecentAssetEntity();
+    int length = recentAssetEntity.length;
+    List<File?> images = [];
+    for (int i = 0; i < length; i++) {
+      final assetEntity = recentAssetEntity[i];
+      final file = await assetEntity.file;
+      images.add(file);
+    }
+    return images;
+  }
 
   /// TO get File from AssetEntity
   /// Iterate on the result then call [await element.file]
   /// element is every item in result
-  Future<List<AssetEntity>> getLatestImages() async {
+  static Future<List<AssetEntity>> getRecentAssetEntity() async {
     final isGranted = await checkForPermission();
     if (!isGranted) {
       throw UnimplementedError("Permission is not granted!");
@@ -15,7 +28,7 @@ class ScanlyImageManager {
     return entities;
   }
 
-  Future<bool> checkForPermission() async {
+  static Future<bool> checkForPermission() async {
     final PermissionState _ps = await PhotoManager.requestPermissionExtend();
     return _ps.isAuth;
   }
