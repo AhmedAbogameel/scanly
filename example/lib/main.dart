@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:scanly/qr_generator/sacnly_qr_generator.dart';
 
 void main() {
   runApp(const MyApp());
@@ -53,6 +54,10 @@ class _MyHomePageState extends State<MyHomePage> {
             Text(
               '$_counter',
               style: Theme.of(context).textTheme.headline4,
+            ),
+            ScanlyQRGenerator(
+              data: 'Jemi',
+              circled: true,
             ),
           ],
         ),
