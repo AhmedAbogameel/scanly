@@ -3,6 +3,7 @@ import 'package:photo_manager/photo_manager.dart';
 
 abstract class ScanlyImageManager {
 
+  /// Get the recent 20 image from storage
   static Future<List<File?>> getRecentImages() async {
     final recentAssetEntity = await getRecentAssetEntity();
     int length = recentAssetEntity.length;
