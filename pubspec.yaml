@@ -8,8 +8,11 @@ environment:
   flutter: ">=1.17.0"
 
 dependencies:
+  # Get Images paths
   photo_manager: ^2.0.8
   qrscan: ^0.3.2
+  # Generating QR Code
+  qr_flutter: ^4.0.0
   flutter:
     sdk: flutter
 
