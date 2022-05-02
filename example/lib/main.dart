@@ -1,3 +1,4 @@
+import 'dart:developer';
 import 'dart:io';
 
 import 'package:flutter/material.dart';
@@ -33,8 +34,6 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-
-
   @override
   void initState() {
     ScanlyImageManager.checkForPermission();
@@ -47,10 +46,15 @@ class _MyHomePageState extends State<MyHomePage> {
       appBar: AppBar(
         title: Text(widget.title),
       ),
-      body: ScanlyQRGenerator(
-        data: 'Jemi',
-        circled: true,
+      body: Scanly(
+        onScanData: (data){
+          log('data: $data');
+        },
       ),
     );
   }
 }
+//ScanlyQRGenerator(
+//         data: 'Jemi',
+//         circled: true,
+//       )

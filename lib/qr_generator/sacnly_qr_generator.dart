@@ -2,36 +2,23 @@ import 'dart:developer';
 import 'dart:io';
 
 import 'package:flutter/material.dart';
-import 'package:qr_flutter/qr_flutter.dart';
+import 'package:qr_code_scanner/qr_code_scanner.dart';
 import 'package:scanly/image_manager/scanly_image_manager.dart';
 
-class ScanlyQRGenerator extends StatefulWidget {
-  ScanlyQRGenerator({
-    Key? key,
-    required this.data,
-    this.backgroundColor = Colors.transparent,
-    this.foregroundColor,
-    this.size,
-    this.circled = false,
-    this.embeddedImage,
-    this.padding = const EdgeInsets.all(10),
-  })  : assert(data.trim().isNotEmpty),
-        super(key: key);
-
-  final String data;
-  final Color backgroundColor;
-  final Color? foregroundColor;
-  final bool circled;
-  final double? size;
-  final EdgeInsets padding;
-  final ImageProvider? embeddedImage;
+class Scanly extends StatefulWidget {
+  const Scanly({Key? key, this.onScanData}) : super(key: key);
+  final Function? onScanData;
 
   @override
-  State<ScanlyQRGenerator> createState() => _ScanlyQRGeneratorState();
+  State<Scanly> createState() => _ScanlyState();
 }
 
-class _ScanlyQRGeneratorState extends State<ScanlyQRGenerator> {
+class _ScanlyState extends State<Scanly> {
   List<ImageModel> images = [];
+
+  final GlobalKey qrKey = GlobalKey();
+  Barcode? result;
+  QRViewController? controller;
 
   @override
   void initState() {
@@ -43,7 +30,7 @@ class _ScanlyQRGeneratorState extends State<ScanlyQRGenerator> {
     images = await ScanlyImageManager.getRecentImages();
     images.add(ImageModel(
       type: Type.gallery,
-      file: File('gallery'),
+      file: File(''),
     ));
     setState(() {});
   }
@@ -55,26 +42,9 @@ class _ScanlyQRGeneratorState extends State<ScanlyQRGenerator> {
       children: [
         SizedBox(
           height: MediaQuery.of(context).size.height,
-          child: Center(
-            child: QrImage(
-              data: widget.data,
-              backgroundColor: widget.backgroundColor,
-              foregroundColor: widget.foregroundColor,
-              size: widget.size,
-              padding: widget.padding,
-              eyeStyle: QrEyeStyle(
-                eyeShape:
-                    widget.circled ? QrEyeShape.circle : QrEyeShape.square,
-                color: widget.foregroundColor ?? Colors.black,
-              ),
-              embeddedImage: widget.embeddedImage,
-              dataModuleStyle: QrDataModuleStyle(
-                dataModuleShape: widget.circled
-                    ? QrDataModuleShape.circle
-                    : QrDataModuleShape.square,
-                color: widget.foregroundColor ?? Colors.black,
-              ),
-            ),
+          child: QRView(
+            key: qrKey,
+            onQRViewCreated: _onQRViewCreated,
           ),
         ),
         Positioned(
@@ -82,6 +52,12 @@ class _ScanlyQRGeneratorState extends State<ScanlyQRGenerator> {
         )
       ],
     );
+  }
+
+  void _onQRViewCreated(QRViewController controller) {
+    this.controller = controller;
+    controller.scannedDataStream
+        .listen((scanData) => widget.onScanData!.call(scanData));
   }
 }
 
