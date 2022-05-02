@@ -1,5 +1,6 @@
 import 'dart:io';
 import 'package:photo_manager/photo_manager.dart';
+import 'package:scan/scan.dart';
 
 abstract class ScanlyImageManager {
   /// Get the recent 20 image from storage
@@ -32,6 +33,10 @@ abstract class ScanlyImageManager {
   static Future<bool> checkForPermission() async {
     final PermissionState _ps = await PhotoManager.requestPermissionExtend();
     return _ps.isAuth;
+  }
+
+  static Future<String?> scan(String imgPath) async {
+    return await Scan.parse(imgPath);
   }
 }
 

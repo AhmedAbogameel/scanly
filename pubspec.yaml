@@ -11,6 +11,8 @@ dependencies:
   # Get Images paths
   photo_manager: ^2.0.8
   qr_code_scanner: ^0.7.0
+  scan: ^1.6.0
+  image_picker: ^0.8.5
   # Generating QR Code
   qr_flutter: ^4.0.0
   flutter:
