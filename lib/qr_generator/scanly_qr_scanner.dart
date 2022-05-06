@@ -1,19 +1,18 @@
-import 'dart:developer';
 import 'dart:io';
-
+import 'package:image_picker/image_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:qr_code_scanner/qr_code_scanner.dart';
 import 'package:scanly/image_manager/scanly_image_manager.dart';
 
-class Scanly extends StatefulWidget {
-  const Scanly({Key? key, this.onScanData}) : super(key: key);
+class ScanlyQRScanner extends StatefulWidget {
+  const ScanlyQRScanner({Key? key, this.onScanData}) : super(key: key);
   final Function? onScanData;
 
   @override
-  State<Scanly> createState() => _ScanlyState();
+  State<ScanlyQRScanner> createState() => _ScanlyQRScannerState();
 }
 
-class _ScanlyState extends State<Scanly> {
+class _ScanlyQRScannerState extends State<ScanlyQRScanner> {
   List<ImageModel> images = [];
 
   final GlobalKey qrKey = GlobalKey();
@@ -48,7 +47,7 @@ class _ScanlyState extends State<Scanly> {
           ),
         ),
         Positioned(
-          child: PhotoSlider(images),
+          child: PhotoSlider(images, widget.onScanData!),
         )
       ],
     );
@@ -57,49 +56,55 @@ class _ScanlyState extends State<Scanly> {
   void _onQRViewCreated(QRViewController controller) {
     this.controller = controller;
     controller.scannedDataStream
-        .listen((scanData) => widget.onScanData!.call(scanData));
+        .listen((scanData) => widget.onScanData!.call(scanData.code));
   }
 }
 
 class PhotoSlider extends StatelessWidget {
-  PhotoSlider(this.images, {Key? key}) : super(key: key);
+  const PhotoSlider(this.images, this.onScanData, {Key? key}) : super(key: key);
   final List<ImageModel> images;
-
-  double size = 100;
+  final Function? onScanData;
 
   @override
   Widget build(BuildContext context) {
     return AnimatedContainer(
       duration: const Duration(milliseconds: 800),
-      height: size + 12,
+      height: 112,
       child: ListView.separated(
           scrollDirection: Axis.horizontal,
           padding: const EdgeInsets.symmetric(horizontal: 12) +
               const EdgeInsets.only(bottom: 12),
           shrinkWrap: true,
           itemBuilder: (BuildContext context, int index) =>
-              images[index].type == Type.gallery
-                  ? ChooseFromGalleryOption(size)
-                  : PhotoItem(size, images[index].file!),
+          images[index].type == Type.gallery
+              ? ChooseFromGalleryOption(onScanData!)
+              : PhotoItem(images[index].file!, onScanData!),
           separatorBuilder: (BuildContext context, int index) => const SizedBox(
-                width: 12,
-              ),
+            width: 12,
+          ),
           itemCount: images.length),
     );
   }
 }
 
 class ChooseFromGalleryOption extends StatelessWidget {
-  const ChooseFromGalleryOption(this.size, {Key? key}) : super(key: key);
-  final double size;
+  const ChooseFromGalleryOption(this.onScanData, {Key? key}) : super(key: key);
+  final Function onScanData;
 
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: () => log('choose image'),
+      onTap: () async {
+        try {
+          final XFile? image =
+          await ImagePicker().pickImage(source: ImageSource.gallery);
+          String? result = await ScanlyImageManager.scan(image!.path);
+          onScanData.call(result ?? '');
+        } catch (e) {}
+      },
       child: AnimatedContainer(
         duration: const Duration(milliseconds: 800),
-        width: size,
+        width: 100,
         decoration: const BoxDecoration(
           color: Colors.black38,
           borderRadius: BorderRadius.all(Radius.circular(12)),
@@ -108,6 +113,7 @@ class ChooseFromGalleryOption extends StatelessWidget {
           child: Text(
             'choose from galley',
             textAlign: TextAlign.center,
+            style: TextStyle(color: Colors.white),
           ),
         ),
       ),
@@ -116,17 +122,20 @@ class ChooseFromGalleryOption extends StatelessWidget {
 }
 
 class PhotoItem extends StatelessWidget {
-  const PhotoItem(this.size, this.image, {Key? key}) : super(key: key);
-  final double size;
+  const PhotoItem(this.image, this.onScanData, {Key? key}) : super(key: key);
   final File image;
+  final Function onScanData;
 
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: () => log('go to image'),
+      onTap: () async {
+        String? result = await ScanlyImageManager.scan(image.path);
+        onScanData.call(result ?? '');
+      },
       child: AnimatedContainer(
         duration: const Duration(milliseconds: 800),
-        width: size,
+        width: 100,
         decoration: BoxDecoration(
           color: Colors.white,
           borderRadius: const BorderRadius.all(Radius.circular(12)),
