@@ -16,7 +16,6 @@ class _ScanlyQRScannerState extends State<ScanlyQRScanner> {
   List<ImageModel> images = [];
 
   final GlobalKey qrKey = GlobalKey();
-  Barcode? result;
   QRViewController? controller;
 
   @override
