@@ -1,10 +1,7 @@
 import 'dart:developer';
-import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:scanly/image_manager/scanly_image_manager.dart';
-import 'package:scanly/qr_generator/sacnly_qr_generator.dart';
-
+import 'package:scanly/scanly.dart';
 void main() {
   runApp(const MyApp());
 }
@@ -46,9 +43,9 @@ class _MyHomePageState extends State<MyHomePage> {
       appBar: AppBar(
         title: Text(widget.title),
       ),
-      body: Scanly(
+      body: ScanlyQRScanner(
         onScanData: (data){
-          log('data: $data');
+          log('QR Data: $data');
         },
       ),
     );
