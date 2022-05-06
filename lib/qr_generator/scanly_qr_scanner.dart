@@ -76,12 +76,12 @@ class PhotoSlider extends StatelessWidget {
               const EdgeInsets.only(bottom: 12),
           shrinkWrap: true,
           itemBuilder: (BuildContext context, int index) =>
-          images[index].type == Type.gallery
-              ? ChooseFromGalleryOption(onScanData!)
-              : PhotoItem(images[index].file!, onScanData!),
+              images[index].type == Type.gallery
+                  ? ChooseFromGalleryOption(onScanData!)
+                  : PhotoItem(images[index].file!, onScanData!),
           separatorBuilder: (BuildContext context, int index) => const SizedBox(
-            width: 12,
-          ),
+                width: 12,
+              ),
           itemCount: images.length),
     );
   }
@@ -97,10 +97,12 @@ class ChooseFromGalleryOption extends StatelessWidget {
       onTap: () async {
         try {
           final XFile? image =
-          await ImagePicker().pickImage(source: ImageSource.gallery);
+              await ImagePicker().pickImage(source: ImageSource.gallery);
           String? result = await ScanlyImageManager.scan(image!.path);
           onScanData.call(result ?? '');
-        } catch (e) {}
+        } catch (e) {
+          onScanData.call('No Data');
+        }
       },
       child: AnimatedContainer(
         duration: const Duration(milliseconds: 800),
