@@ -5,15 +5,15 @@ import 'package:flutter/material.dart';
 import 'package:qr_code_scanner/qr_code_scanner.dart';
 import 'package:scanly/image_manager/scanly_image_manager.dart';
 
-class Scanly extends StatefulWidget {
-  const Scanly({Key? key, this.onScanData}) : super(key: key);
+class ScanlyQRScanner extends StatefulWidget {
+  const ScanlyQRScanner({Key? key, this.onScanData}) : super(key: key);
   final Function? onScanData;
 
   @override
-  State<Scanly> createState() => _ScanlyState();
+  State<ScanlyQRScanner> createState() => _ScanlyQRScannerState();
 }
 
-class _ScanlyState extends State<Scanly> {
+class _ScanlyQRScannerState extends State<ScanlyQRScanner> {
   List<ImageModel> images = [];
 
   final GlobalKey qrKey = GlobalKey();
@@ -78,12 +78,12 @@ class PhotoSlider extends StatelessWidget {
               const EdgeInsets.only(bottom: 12),
           shrinkWrap: true,
           itemBuilder: (BuildContext context, int index) =>
-              images[index].type == Type.gallery
-                  ? ChooseFromGalleryOption(size)
-                  : PhotoItem(size, images[index].file!),
+          images[index].type == Type.gallery
+              ? ChooseFromGalleryOption(size)
+              : PhotoItem(size, images[index].file!),
           separatorBuilder: (BuildContext context, int index) => const SizedBox(
-                width: 12,
-              ),
+            width: 12,
+          ),
           itemCount: images.length),
     );
   }
