@@ -1,3 +1,4 @@
+import 'dart:developer';
 import 'dart:io';
 import 'package:image_picker/image_picker.dart';
 import 'package:flutter/material.dart';
@@ -5,8 +6,8 @@ import 'package:qr_code_scanner/qr_code_scanner.dart';
 import 'package:scanly/image_manager/scanly_image_manager.dart';
 
 class ScanlyQRScanner extends StatefulWidget {
-  const ScanlyQRScanner({Key? key, this.onScanData}) : super(key: key);
-  final Function? onScanData;
+  const ScanlyQRScanner({Key? key, required this.onScanData}) : super(key: key);
+  final Function(String?) onScanData;
 
   @override
   State<ScanlyQRScanner> createState() => _ScanlyQRScannerState();
@@ -25,6 +26,10 @@ class _ScanlyQRScannerState extends State<ScanlyQRScanner> {
   }
 
   Future<void> getRecent() async {
+    final isGranted = await ScanlyImageManager.checkForPermission();
+    if (!isGranted) {
+      return;
+    }
     images = await ScanlyImageManager.getRecentImages();
     images.add(ImageModel(
       type: Type.gallery,
@@ -46,7 +51,7 @@ class _ScanlyQRScannerState extends State<ScanlyQRScanner> {
           ),
         ),
         Positioned(
-          child: PhotoSlider(images, widget.onScanData!),
+          child: PhotoSlider(images, widget.onScanData),
         )
       ],
     );
@@ -55,7 +60,7 @@ class _ScanlyQRScannerState extends State<ScanlyQRScanner> {
   void _onQRViewCreated(QRViewController controller) {
     this.controller = controller;
     controller.scannedDataStream
-        .listen((scanData) => widget.onScanData!.call(scanData.code));
+        .listen((scanData) => widget.onScanData.call(scanData.code));
   }
 }
 
@@ -68,20 +73,15 @@ class PhotoSlider extends StatelessWidget {
   Widget build(BuildContext context) {
     return AnimatedContainer(
       duration: const Duration(milliseconds: 800),
-      height: 112,
+      height: 130 + 25,
       child: ListView.separated(
-          scrollDirection: Axis.horizontal,
-          padding: const EdgeInsets.symmetric(horizontal: 12) +
-              const EdgeInsets.only(bottom: 12),
-          shrinkWrap: true,
-          itemBuilder: (BuildContext context, int index) =>
-              images[index].type == Type.gallery
-                  ? ChooseFromGalleryOption(onScanData!)
-                  : PhotoItem(images[index].file!, onScanData!),
-          separatorBuilder: (BuildContext context, int index) => const SizedBox(
-                width: 12,
-              ),
-          itemCount: images.length),
+        scrollDirection: Axis.horizontal,
+        padding: const EdgeInsets.fromLTRB(25, 0, 25, 25),
+        shrinkWrap: true,
+        itemBuilder: (BuildContext context, int index) => images[index].type == Type.gallery ? ChooseFromGalleryOption(onScanData!) : PhotoItem(images[index].file!, onScanData!),
+        separatorBuilder: (BuildContext context, int index) => const SizedBox(width: 12),
+        itemCount: images.length,
+      ),
     );
   }
 }
@@ -95,28 +95,23 @@ class ChooseFromGalleryOption extends StatelessWidget {
     return InkWell(
       onTap: () async {
         try {
-          final XFile? image =
-              await ImagePicker().pickImage(source: ImageSource.gallery);
+          final XFile? image = await ImagePicker().pickImage(source: ImageSource.gallery);
           String? result = await ScanlyImageManager.scan(image!.path);
           onScanData.call(result ?? '');
         } catch (e) {
-          onScanData.call('No Data');
+          log("Scanly: Unexpected Error Occurred!");
+          log("Scanly Error: $e");
         }
       },
       child: AnimatedContainer(
         duration: const Duration(milliseconds: 800),
-        width: 100,
+        width: 130,
         decoration: const BoxDecoration(
           color: Colors.black38,
           borderRadius: BorderRadius.all(Radius.circular(12)),
         ),
-        child: const Center(
-          child: Text(
-            'choose from galley',
-            textAlign: TextAlign.center,
-            style: TextStyle(color: Colors.white),
-          ),
-        ),
+        alignment: Alignment.center,
+        child: const Icon(Icons.image, color: Colors.white, size: 30,),
       ),
     );
   }
@@ -132,15 +127,18 @@ class PhotoItem extends StatelessWidget {
     return InkWell(
       onTap: () async {
         String? result = await ScanlyImageManager.scan(image.path);
-        onScanData.call(result ?? '');
+        onScanData.call(result);
       },
       child: AnimatedContainer(
         duration: const Duration(milliseconds: 800),
-        width: 100,
+        width: 130,
         decoration: BoxDecoration(
           color: Colors.white,
           borderRadius: const BorderRadius.all(Radius.circular(12)),
-          image: DecorationImage(image: FileImage(image), fit: BoxFit.cover),
+          image: DecorationImage(
+            image: FileImage(image),
+            fit: BoxFit.fill,
+          ),
         ),
       ),
     );

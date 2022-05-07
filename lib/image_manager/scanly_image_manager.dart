@@ -40,7 +40,7 @@ abstract class ScanlyImageManager {
   }
 }
 
-enum Type { image, gallery }
+enum Type {image, gallery}
 
 class ImageModel {
   final Type? type;

@@ -32,17 +32,8 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   @override
-  void initState() {
-    ScanlyImageManager.checkForPermission();
-    super.initState();
-  }
-
-  @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text(widget.title),
-      ),
       body: ScanlyQRScanner(
         onScanData: (data){
           log('QR Data: $data');
@@ -51,7 +42,3 @@ class _MyHomePageState extends State<MyHomePage> {
     );
   }
 }
-//ScanlyQRGenerator(
-//         data: 'Jemi',
-//         circled: true,
-//       )
