@@ -13,6 +13,7 @@ dependencies:
   qr_code_scanner: ^0.7.0
   scan: ^1.6.0
   image_picker: ^0.8.5
+  request_permission: ^2.1.4
   # Generating QR Code
   qr_flutter: ^4.0.0
   flutter:

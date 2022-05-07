@@ -1,5 +1,7 @@
+import 'dart:developer';
 import 'dart:io';
 import 'package:photo_manager/photo_manager.dart';
+import 'package:request_permission/request_permission.dart';
 import 'package:scan/scan.dart';
 
 abstract class ScanlyImageManager {
@@ -22,16 +24,17 @@ abstract class ScanlyImageManager {
   static Future<List<AssetEntity>> getRecentAssetEntity() async {
     final isGranted = await checkForPermission();
     if (!isGranted) {
+      log("Scanly : Permission is not granted!");
       throw UnimplementedError("Permission is not granted!");
     }
     final List<AssetPathEntity> paths = await PhotoManager.getAssetPathList();
-    final List<AssetEntity> entities =
-        await paths.first.getAssetListPaged(page: 0, size: 20);
+    final List<AssetEntity> entities = await paths.first.getAssetListPaged(page: 0, size: 20);
     return entities;
   }
 
   static Future<bool> checkForPermission() async {
     final PermissionState _ps = await PhotoManager.requestPermissionExtend();
+    await RequestPermission.instace.requestAndroidPermission("android.permission.CAMERA");
     return _ps.isAuth;
   }
 
