@@ -15,6 +15,7 @@ dependencies:
   scan: ^1.6.0
   # Get Images form gallery
   image_picker: ^0.8.5
+  request_permission: ^2.1.4
   # Generating QR Code
   qr_flutter: ^4.0.0
   # Permission Asker
