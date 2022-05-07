@@ -26,10 +26,6 @@ class _ScanlyQRScannerState extends State<ScanlyQRScanner> {
   }
 
   Future<void> getRecent() async {
-    final isGranted = await ScanlyImageManager.checkForPermission();
-    if (!isGranted) {
-      return;
-    }
     images = await ScanlyImageManager.getRecentImages();
     images.add(ImageModel(
       type: Type.gallery,

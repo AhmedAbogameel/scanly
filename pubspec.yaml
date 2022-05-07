@@ -10,11 +10,15 @@ environment:
 dependencies:
   # Get Images paths
   photo_manager: ^2.0.8
+  # Scanning QR
   qr_code_scanner: ^0.7.0
   scan: ^1.6.0
+  # Get Images form gallery
   image_picker: ^0.8.5
   # Generating QR Code
   qr_flutter: ^4.0.0
+  # Permission Asker
+  request_permission: ^2.1.4
   flutter:
     sdk: flutter
 
