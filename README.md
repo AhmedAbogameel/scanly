@@ -4,7 +4,7 @@
 
 - Generate QR Code with your data.
 - Scan QR Via Camera.
-- Scan QR Code From Galley With Awesome UI.
+- Scan QR Code From Recent Photos With Awesome UI or Pick from Gallery.
 
 ## Installation
 ### Android 
@@ -42,6 +42,8 @@ ScanlyQRGenerator(
 )
 ```
 
+![](images/Screenshot_1652542175.png)
+
 ### Scan QR Widget Via Camera or Gallery
 ```
 ScanlyQRScanner(
@@ -50,3 +52,4 @@ ScanlyQRScanner(
   },
 )
 ```
+![](images/Screenshot_1652542036.png)
