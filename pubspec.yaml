@@ -1,7 +1,8 @@
 name: scanly
-description: A new Flutter project.
+description: Simple and Comprehensive QR Package.
 version: 0.0.1
-homepage:
+homepage: https://github.com/AhmedAbogameel/scanly
+repository: https://github.com/AhmedAbogameel/scanly
 
 environment:
   sdk: ">=2.16.1 <3.0.0"
