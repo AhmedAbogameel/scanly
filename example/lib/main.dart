@@ -1,6 +1,4 @@
-import 'dart:developer';
 import 'package:flutter/material.dart';
-import 'package:scanly/image_manager/scanly_image_manager.dart';
 import 'package:scanly/scanly.dart';
 
 void main() {
@@ -35,11 +33,16 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Center(
-        child: ScanlyQRGenerator(
-          data: 'Scan',
-        ),
+      body: ScanlyQRScanner(
+        onScanData: (data) {
+
+        },
       ),
+      // body: Center(
+      //   child: ScanlyQRGenerator(
+      //     data: 'Scan',
+      //   ),
+      // ),
     );
   }
 }
