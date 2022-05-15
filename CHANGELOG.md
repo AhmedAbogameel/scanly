@@ -1,4 +1,4 @@
-## 0.0.1
+## 0.0.1+1
 
 # Scanly
 ## Simple and Comprehensive QR Package.
