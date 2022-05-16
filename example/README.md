@@ -1,6 +1,6 @@
-# example
+# scanly_example
 
-A new Flutter project.
+Demonstrates how to use the scanly plugin.
 
 ## Getting Started
 

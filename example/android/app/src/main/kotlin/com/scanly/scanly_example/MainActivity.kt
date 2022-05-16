@@ -1,4 +1,4 @@
-package com.scanly.example
+package com.scanly.scanly_example
 
 import io.flutter.embedding.android.FlutterActivity
 

@@ -11,11 +11,11 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
+      title: 'Scanly Demo',
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: const MyHomePage(title: 'Flutter Demo Home Page'),
+      home: const MyHomePage(title: 'Scanly Demo'),
     );
   }
 }
@@ -33,16 +33,71 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: ScanlyQRScanner(
-        onScanData: (data) {
-
-        },
+      appBar: AppBar(
+        title: Text(widget.title),
       ),
-      // body: Center(
-      //   child: ScanlyQRGenerator(
-      //     data: 'Scan',
-      //   ),
-      // ),
+      body: SizedBox(
+        width: double.infinity,
+        child: Padding(
+          padding: const EdgeInsets.all(30),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              ElevatedButton(
+                child: const Text('Scan'),
+                onPressed: () {
+                  Navigator.push(context, MaterialPageRoute(builder: (context) => const ScanView(),));
+                },
+              ),
+              ElevatedButton(
+                child: const Text('Generate'),
+                onPressed: () {
+                  Navigator.push(context, MaterialPageRoute(builder: (context) => const GenerateView(),));
+                },
+              ),
+            ],
+          ),
+        ),
+      )
+    );
+  }
+}
+
+class ScanView extends StatelessWidget {
+  const ScanView({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text("Scanly Scan Widget"),
+      ),
+      body: Center(
+        child: ScanlyQRScanner(
+          onScanData: (data) {
+
+          },
+        ),
+      ),
+    );
+  }
+}
+
+class GenerateView extends StatelessWidget {
+  const GenerateView({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text("Scanly Generator Widget"),
+      ),
+      body: Center(
+        child: ScanlyQRGenerator(
+          data: 'Scan',
+        ),
+      ),
     );
   }
 }
