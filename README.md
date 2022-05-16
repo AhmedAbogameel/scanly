@@ -7,6 +7,15 @@
 - Scan QR Code From Recent Photos With Awesome UI or Pick from Gallery.
 
 ## Installation
+### iOS
+ios -> Runner -> info.plist
+```
+<key>NSCameraUsageDescription</key>
+<string>We Want camera access for QR Scanning</string>
+<key>NSPhotoLibraryUsageDescription</key>
+<string>We Want gallery access for QR Scanning</string>
+```
+
 ### Android 
 android -> app -> build.gradle
 ```
@@ -22,15 +31,6 @@ android -> app -> src -> main -> AndroidManifest.xml
 <application
         android:requestLegacyExternalStorage="true"
                                           >
-```
-
-### iOS
-ios -> Runner -> info.plist
-```
-<key>NSCameraUsageDescription</key>
-<string>We Want camera access for QR Scanning</string>
-<key>NSPhotoLibraryUsageDescription</key>
-<string>We Want gallery access for QR Scanning</string>
 ```
 
 ## Usage
