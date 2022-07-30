@@ -1,3 +1,6 @@
+## 0.0.1+4
+- Updating Dependencies versions.
+
 ## 0.0.1+3
 
 - Generate QR Code with your data.

@@ -10,12 +10,12 @@ environment:
 
 dependencies:
   # Get Images paths
-  photo_manager: ^2.0.8
+  photo_manager: ^2.1.4
   # Scanning QR
-  qr_code_scanner: ^0.7.0
+  qr_code_scanner: ^1.0.0
   scan: ^1.6.0
   # Get Images form gallery
-  image_picker: ^0.8.5
+  image_picker: ^0.8.5+3
   # Generating QR Code
   qr_flutter: ^4.0.0
   # Permission Asker
@@ -26,6 +26,6 @@ dependencies:
 dev_dependencies:
   flutter_test:
     sdk: flutter
-  flutter_lints: ^1.0.4
+  flutter_lints: ^2.0.1
 
 flutter:
