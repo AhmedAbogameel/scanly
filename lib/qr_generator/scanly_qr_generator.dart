@@ -24,7 +24,7 @@ class ScanlyQRGenerator extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return QrImage(
+    return QrImageView(
       data: data,
       backgroundColor: backgroundColor,
       foregroundColor: foregroundColor,

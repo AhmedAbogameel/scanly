@@ -1,6 +1,6 @@
 name: scanly
 description: Simple and Comprehensive QR Package. Generate or Scan QR Code Via Camera or From Recent and Gallery.
-version: 0.0.1+4
+version: 0.0.1+5
 homepage: https://github.com/AhmedAbogameel/scanly
 repository: https://github.com/AhmedAbogameel/scanly
 
@@ -10,14 +10,14 @@ environment:
 
 dependencies:
   # Get Images paths
-  photo_manager: ^2.1.4
+  photo_manager: ^2.6.0
   # Scanning QR
-  qr_code_scanner: ^1.0.0
+  qr_code_scanner: ^1.0.1
   scan: ^1.6.0
   # Get Images form gallery
-  image_picker: ^0.8.5+3
+  image_picker: ^1.0.0
   # Generating QR Code
-  qr_flutter: ^4.0.0
+  qr_flutter: ^4.1.0
   # Permission Asker
   request_permission: ^2.1.4
   flutter:
@@ -26,6 +26,6 @@ dependencies:
 dev_dependencies:
   flutter_test:
     sdk: flutter
-  flutter_lints: ^2.0.1
+  flutter_lints: ^2.0.2
 
 flutter:

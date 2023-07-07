@@ -1,5 +1,8 @@
+## 0.0.1+5
+- Updating Dependencies.
+
 ## 0.0.1+4
-- Updating Dependencies versions.
+- Updating Dependencies.
 
 ## 0.0.1+3
 

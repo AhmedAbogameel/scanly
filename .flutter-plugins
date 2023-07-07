@@ -1,10 +1,16 @@
 # This is a generated file; do not edit or check into version control.
-flutter_plugin_android_lifecycle=/Users/jemi/Flutter/flutter/.pub-cache/hosted/pub.dartlang.org/flutter_plugin_android_lifecycle-2.0.7/
-image_picker=/Users/jemi/Flutter/flutter/.pub-cache/hosted/pub.dartlang.org/image_picker-0.8.5+3/
-image_picker_android=/Users/jemi/Flutter/flutter/.pub-cache/hosted/pub.dartlang.org/image_picker_android-0.8.5+1/
-image_picker_for_web=/Users/jemi/Flutter/flutter/.pub-cache/hosted/pub.dartlang.org/image_picker_for_web-2.1.8/
-image_picker_ios=/Users/jemi/Flutter/flutter/.pub-cache/hosted/pub.dartlang.org/image_picker_ios-0.8.5+6/
-photo_manager=/Users/jemi/Flutter/flutter/.pub-cache/hosted/pub.dartlang.org/photo_manager-2.1.4/
-qr_code_scanner=/Users/jemi/Flutter/flutter/.pub-cache/hosted/pub.dartlang.org/qr_code_scanner-1.0.0/
-request_permission=/Users/jemi/Flutter/flutter/.pub-cache/hosted/pub.dartlang.org/request_permission-2.1.4/
-scan=/Users/jemi/Flutter/flutter/.pub-cache/hosted/pub.dartlang.org/scan-1.6.0/
+file_selector_linux=/Users/jemi/.pub-cache/hosted/pub.dev/file_selector_linux-0.9.2/
+file_selector_macos=/Users/jemi/.pub-cache/hosted/pub.dev/file_selector_macos-0.9.3/
+file_selector_windows=/Users/jemi/.pub-cache/hosted/pub.dev/file_selector_windows-0.9.3/
+flutter_plugin_android_lifecycle=/Users/jemi/.pub-cache/hosted/pub.dev/flutter_plugin_android_lifecycle-2.0.15/
+image_picker=/Users/jemi/.pub-cache/hosted/pub.dev/image_picker-1.0.0/
+image_picker_android=/Users/jemi/.pub-cache/hosted/pub.dev/image_picker_android-0.8.7+3/
+image_picker_for_web=/Users/jemi/.pub-cache/hosted/pub.dev/image_picker_for_web-2.2.0/
+image_picker_ios=/Users/jemi/.pub-cache/hosted/pub.dev/image_picker_ios-0.8.8/
+image_picker_linux=/Users/jemi/.pub-cache/hosted/pub.dev/image_picker_linux-0.2.1/
+image_picker_macos=/Users/jemi/.pub-cache/hosted/pub.dev/image_picker_macos-0.2.1/
+image_picker_windows=/Users/jemi/.pub-cache/hosted/pub.dev/image_picker_windows-0.2.1/
+photo_manager=/Users/jemi/.pub-cache/hosted/pub.dev/photo_manager-2.6.0/
+qr_code_scanner=/Users/jemi/.pub-cache/hosted/pub.dev/qr_code_scanner-1.0.1/
+request_permission=/Users/jemi/.pub-cache/hosted/pub.dev/request_permission-2.1.4/
+scan=/Users/jemi/.pub-cache/hosted/pub.dev/scan-1.6.0/
