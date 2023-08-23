@@ -1,3 +1,7 @@
+## 0.0.3
+- Requesting android.permission.CAMERA on iOS fixed.
+- Updating Dependencies.
+
 ## 0.0.2
 - Updating Dependencies.
 
