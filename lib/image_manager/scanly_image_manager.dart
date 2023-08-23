@@ -34,8 +34,9 @@ abstract class ScanlyImageManager {
 
   static Future<bool> checkForPermission() async {
     final PermissionState ps = await PhotoManager.requestPermissionExtend();
-    if (Platform.isAndroid)
+    if (Platform.isAndroid) {
       await RequestPermission.instace.requestAndroidPermission("android.permission.CAMERA");
+    }
     return ps.isAuth;
   }
 

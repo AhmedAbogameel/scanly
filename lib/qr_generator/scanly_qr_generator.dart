@@ -27,7 +27,6 @@ class ScanlyQRGenerator extends StatelessWidget {
     return QrImageView(
       data: data,
       backgroundColor: backgroundColor,
-      foregroundColor: foregroundColor,
       size: size,
       padding: padding,
       eyeStyle: QrEyeStyle(
